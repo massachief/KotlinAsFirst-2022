@@ -29,7 +29,7 @@ fun sqr(x: Double) = x * x
  */
 fun discriminant(a: Double, b: Double, c: Double) = sqr(b) - 4 * a * c
 
-/**
+/***
  * Пример
  *
  * Поиск одного из корней квадратного уравнения
