@@ -5,6 +5,7 @@ package lesson2.task1
 import lesson1.task1.discriminant
 import kotlin.math.max
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
@@ -147,7 +148,24 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    return when {
+        a > b + c || b > a + c || c > b + a -> -1
+        a.pow(2.0) > b.pow(2.0) + c.pow(2.0) ||
+                b.pow(2.0) > a.pow(2.0) + c.pow(2.0) ||
+                c.pow(2.0) > a.pow(2.0) + b.pow(2.0) -> 2
+
+        c.pow(2.0) == a.pow(2.0) + b.pow(2.0) ||
+                b.pow(2.0) == a.pow(2.0) + c.pow(2.0) ||
+                a.pow(2.0) == b.pow(2.0) + c.pow(2.0) -> 1
+
+        a.pow(2.0) < b.pow(2.0) + c.pow(2.0) ||
+                b.pow(2.0) < a.pow(2.0) + c.pow(2.0) ||
+                c.pow(2.0) == a.pow(2.0) + c.pow(2.0) -> 0
+
+        else -> -1
+    }
+}
 
 /**
  * Средняя (3 балла)
