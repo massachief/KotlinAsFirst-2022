@@ -6,6 +6,7 @@ import lesson1.task1.discriminant
 import kotlin.math.max
 import kotlin.math.sqrt
 import kotlin.math.pow
+import kotlin.math.abs
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
@@ -138,7 +139,22 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    return when {
+        (kingX == rookX) && (abs(kingX - bishopX) == abs(kingY - bishopY)) ||
+                (kingY == rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 3
+
+        (kingX == rookX) && (abs(kingX - bishopX) != abs(kingY - bishopY)) ||
+                (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
+
+        (kingX != rookX) && (abs(kingX - bishopX) == abs(kingY - bishopY)) ||
+                (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 2
+
+        else -> 0
+
+
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -177,11 +193,14 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-        d < a -> -1
-        b > c -> b - c
-        b == c && d - c != 0 -> max(b - a, d - c)
-        b == c -> 0
-        else -> -1
+        (a < c && b < c) || (c < a && d < a) -> -1
+        (c == b) || (a == d) -> 0
+        (a < c) && (c < b) && (b < d) -> b - c
+        (c < a) && (a < d) && (d < b) -> d - a
+        (a < c) && (d < b) -> d - c
+        (c == b) || (a == d) -> 1
+        else -> b - a
+
 
     }
 }
