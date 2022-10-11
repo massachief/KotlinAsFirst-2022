@@ -112,8 +112,8 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int {
-    return when {
+): Int =
+    when {
         kingX == rookX1 && kingX == rookX2 ||
                 kingX == rookX1 && kingY == rookY2 ||
                 kingY == rookY1 && kingX == rookX2 ||
@@ -123,7 +123,6 @@ fun whichRookThreatens(
         kingX == rookX2 || kingY == rookY2 -> 2
         else -> 0
     }
-}
 
 /**
  * Простая (2 балла)
@@ -139,22 +138,17 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int {
-    return when {
-        (kingX == rookX) && (abs(kingX - bishopX) == abs(kingY - bishopY)) ||
-                (kingY == rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 3
+): Int =
+    when {
+        ((kingX == rookX) || (kingY == rookY)) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 3
 
-        (kingX == rookX) && (abs(kingX - bishopX) != abs(kingY - bishopY)) ||
-                (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
+        ((kingX == rookX) || (kingY == rookY)) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
 
-        (kingX != rookX) && (abs(kingX - bishopX) == abs(kingY - bishopY)) ||
-                (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 2
+        ((kingX != rookX) || (kingY != rookY)) && (abs(kingX - bishopX) == abs(kingY - bishopY)) -> 2
 
         else -> 0
 
-
     }
-}
 
 /**
  * Простая (2 балла)
@@ -165,23 +159,17 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val maxc = maxOf(a, b, c).pow(2)
+    if (a + b < c || a + c < b || c + b < a) {
+        return -1
+    }
     return when {
-        a > b + c || b > a + c || c > b + a -> -1
-        a.pow(2.0) > b.pow(2.0) + c.pow(2.0) ||
-                b.pow(2.0) > a.pow(2.0) + c.pow(2.0) ||
-                c.pow(2.0) > a.pow(2.0) + b.pow(2.0) -> 2
-
-        c.pow(2.0) == a.pow(2.0) + b.pow(2.0) ||
-                b.pow(2.0) == a.pow(2.0) + c.pow(2.0) ||
-                a.pow(2.0) == b.pow(2.0) + c.pow(2.0) -> 1
-
-        a.pow(2.0) < b.pow(2.0) + c.pow(2.0) ||
-                b.pow(2.0) < a.pow(2.0) + c.pow(2.0) ||
-                c.pow(2.0) == a.pow(2.0) + c.pow(2.0) -> 0
-
-        else -> -1
+        maxc == a.pow(2) + b.pow(2) + c.pow(2) - maxc -> 1
+        maxc < a.pow(2) + b.pow(2) + c.pow(2) - maxc -> 0
+        else -> 2
     }
 }
+
 
 /**
  * Средняя (3 балла)
@@ -191,16 +179,15 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return when {
-        (a < c && b < c) || (c < a && d < a) -> -1
-        (c == b) || (a == d) -> 0
-        (a <= c) && (c < b) && (b <= d) -> b - c
-        (c <= a) && (a < d) && (d <= b) -> d - a
-        (a < c) && (d < b) -> d - c
-        (c == b) || (a == d) -> 1
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+    when {
+        a < c && b < c || c < a && d < a -> -1
+        c == b || a == d -> 0
+        a <= c && (c < b) && b <= d -> b - c
+        c <= a && (a < d) && d <= b -> d - a
+        a < c && d < b -> d - c
+        c == b || a == d -> 1
         else -> b - a
 
 
     }
-}
