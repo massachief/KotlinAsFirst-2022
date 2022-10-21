@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import kotlin.math.abs
+import kotlin.math.max
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -92,10 +93,10 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    val n1 = n.toDouble()
+    val n1 = n
     if (n1 <= 2) return 1
-    return ((((1.0 + sqrt(5.0)) / 2.0).pow(n1) -
-            (((1.0 - sqrt(5.0)) / 2.0).pow(n1))) / sqrt(5.0)).toInt()
+    return ((((1 + sqrt(5.0)) / 2).pow(n1) -
+            (((1 - sqrt(5.0)) / 2).pow(n1))) / sqrt(5.0)).toInt()
 }
 
 /**
@@ -118,7 +119,14 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var divider = n - 1
+    while (n > 0) {
+        if (n % divider != 0) divider--
+        else return divider
+    }
+    return divider
+}
 
 /**
  * Простая (2 балла)
@@ -136,7 +144,16 @@ fun maxDivisor(n: Int): Int = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var x1 = x
+    var counter = 0
+    while (x1 > 0) {
+        if (x1 % 2 == 0) x1 / 2
+        if (x1 % 2 == 1) x1 * 3 + 1
+        counter++
+    }
+    return counter
+}
 
 /**
  * Средняя (3 балла)
@@ -144,7 +161,14 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var biggerAm = maxOf(m, n)
+    while (true) {
+        if ((biggerAm % m == 0) && (biggerAm % n == 0)) break;
+        else biggerAm++
+    }
+    return biggerAm
+}
 
 /**
  * Средняя (3 балла)
@@ -153,7 +177,20 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var divider = 2
+    var maxNumber = maxOf(m, n)
+    while (true) {
+        if ((divider <= maxNumber / 2) &&
+            ((m % divider != 0) && (n % divider != 0))
+        ) divider++
+        if ((divider == maxNumber / 2) &&
+            (m % divider != 0) && (n % divider != 0)
+        ) true
+        else return false
+    }
+    return true
+}
 
 /**
  * Средняя (3 балла)
