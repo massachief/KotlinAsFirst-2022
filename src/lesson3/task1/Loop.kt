@@ -2,10 +2,10 @@
 
 package lesson3.task1
 
-import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.pow
+import lesson1.task1.sqr
+import kotlin.math.*
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -76,14 +76,14 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var counter = 0
+    var co = 0
     var n1 = abs(n)
     if (n == 0) return 1
     while (n1 > 0) {
-        counter++
+        co++
         n1 /= 10
     }
-    return counter
+    return co
 }
 
 /**
@@ -144,16 +144,7 @@ fun maxDivisor(n: Int): Int {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int {
-    var x1 = x
-    var counter = 0
-    while (x1 > 0) {
-        if (x1 % 2 == 0) x1 / 2
-        if (x1 % 2 == 1) x1 * 3 + 1
-        counter++
-    }
-    return counter
-}
+fun collatzSteps(x: Int): Int = TODO()
 
 /**
  * Средняя (3 балла)
@@ -177,20 +168,7 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    var divider = 2
-    var maxNumber = maxOf(m, n)
-    while (true) {
-        if ((divider <= maxNumber / 2) &&
-            ((m % divider != 0) && (n % divider != 0))
-        ) divider++
-        if ((divider == maxNumber / 2) &&
-            (m % divider != 0) && (n % divider != 0)
-        ) true
-        else return false
-    }
-    return true
-}
+fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 
 /**
  * Средняя (3 балла)
@@ -253,7 +231,18 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var n1 = n
+    val num = 0
+    for (i in 1..n) {
+        val ccount = digitNumber(sqr(i))
+        if (ccount >= n1) {
+            return sqr(i) /
+                    10.0.pow(ccount - n1).toInt() % 10
+        } else n1 -= ccount
+    }
+    return num
+}
 
 /**
  * Сложная (5 баллов)
@@ -264,4 +253,15 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var n1 = n
+    val num = 0
+    for (i in 1..n) {
+        val ccount = digitNumber(fib(i))
+        if (ccount >= n1) {
+            return fib(i) /
+                    (10.0.pow(ccount - n1).toInt()) % 10
+        } else n1 -= ccount
+    }
+    return num
+}
