@@ -95,8 +95,9 @@ fun digitNumber(n: Int): Int {
 fun fib(n: Int): Int {
     val n1 = n
     if (n1 <= 2) return 1
-    return ((((1 + sqrt(5.0)) / 2).pow(n1) -
-            (((1 - sqrt(5.0)) / 2).pow(n1))) / sqrt(5.0)).toInt()
+    val a = (0.5 + sqrt(5.0) / 2).pow(n1)
+    val b = (0.5 - sqrt(5.0) / 2).pow(n1)
+    return ((a - b) / sqrt(5.0)).toInt()
 }
 
 /**
@@ -107,9 +108,11 @@ fun fib(n: Int): Int {
 fun minDivisor(n: Int): Int {
     val n1 = n
     var divider = 2
-    while (n > 1) {
-        if (n1 % divider != 0) divider++
-        else return divider
+    for (i in 1..sqrt(n1.toDouble()).toInt()) {
+        while (n > 1) {
+            if (n1 % divider != 0) divider++
+            else return divider
+        }
     }
     return divider
 }
@@ -154,9 +157,11 @@ fun collatzSteps(x: Int): Int = TODO()
  */
 fun lcm(m: Int, n: Int): Int {
     var biggerAm = maxOf(m, n)
-    while (true) {
-        if ((biggerAm % m == 0) && (biggerAm % n == 0)) break;
-        else biggerAm++
+    for (i in 1..sqrt(minOf(m, n).toDouble()).toInt()) {
+        while (true) {
+            if ((biggerAm % m == 0) && (biggerAm % n == 0)) break;
+            else biggerAm++
+        }
     }
     return biggerAm
 }

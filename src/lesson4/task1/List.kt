@@ -189,7 +189,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).toString()
 
 /**
  * Средняя (3 балла)
@@ -198,7 +198,16 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    var n1 = n
+    val listOfDigits = mutableListOf<Int>()
+    if (n == 0) return listOfDigits
+    while (n1 > 0) {
+        listOfDigits.add(n1 % base)
+        n1 /= base
+    }
+    return listOfDigits.reversed()
+}
 
 /**
  * Сложная (4 балла)
@@ -211,7 +220,18 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    var n1 = n
+    var number = ""
+    val degreeDigits = "0123456789abcdefghijklmnopqrstuvwxyz"
+    var b = convert(n, base)
+    for (i in 0 until b.size) {
+        if (b[i] < 10) number += b[i]
+        else number += degreeDigits[b[i]]
+
+    }
+    return number
+}
 
 /**
  * Средняя (3 балла)
@@ -253,15 +273,4 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String {
-    var sayTheWord = listOf<Char>()
-    var digit = n
-    var extend = 1
-    for (i in 1..n) {
-        var number = digit % 10
-        return when {
-
-
-        }
-    }
-}
+fun russian(n: Int): String = TODO()
