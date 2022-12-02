@@ -288,4 +288,43 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val numbers = listOf<String>("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val afterTen = listOf<String>(
+        "", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+        "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"
+    )
+    val decades = listOf<String>(
+        "", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
+        "восемьдесят", "девяносто"
+    )
+    val hundreds = listOf<String>(
+        "", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот",
+        "восемьсот", "девятьсот"
+    )
+    val digitVariativity = listOf<String>("", "одна", "две")
+    val thusandVariative = listOf<String>("", "тысяч", "тысяча", "тысячи")
+    var ans = mutableListOf<String>()
+    var digit = n.toString()
+    while (digit.isNotEmpty()) {
+        if (digit.length == 1 || digit.length == 4) {
+            if (digit.length == 4 && digit[0].digitToInt() in 1..2) {
+                if (digit[0].digitToInt() == 1) ans += digitVariativity[1]
+                if (digit[0].digitToInt() == 2) ans += digitVariativity[2]
+            } else ans += numbers[digit[0].digitToInt()].trim()
+            if (digit.length == 4)
+                if (digit[0].digitToInt() == 1) ans += thusandVariative[2]
+                else if (digit[0].digitToInt() in 2..4) ans += thusandVariative[3]
+                else ans += thusandVariative[1]
+        }
+        if (digit.length == 2 || digit.length == 5)
+            if (digit[0].digitToInt() == 1 && digit[1].digitToInt() > 0) {
+                ans += afterTen[digit[1].digitToInt()]
+                if (digit.length == 5) ans += thusandVariative[1]
+                digit = digit.substring(1)
+            } else ans += decades[digit[0].digitToInt()]
+        if (digit.length == 3 || digit.length == 6) ans += hundreds[digit[0].digitToInt()].trim()
+        digit = digit.substring(1)
+    }
+    return ans.filter { !it.isBlank() }.joinToString(" ")
+}
