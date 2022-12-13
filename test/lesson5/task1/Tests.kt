@@ -159,7 +159,7 @@ class Tests {
 
     @Test
     @Tag("3")
-    fun mergePhoneBooks() {
+        fun mergePhoneBooks() {
         assertEquals(
             mapOf("Emergency" to "112"),
             mergePhoneBooks(

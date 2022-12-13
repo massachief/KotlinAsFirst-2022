@@ -125,7 +125,7 @@ fun minDivisor(n: Int): Int {
 fun maxDivisor(n: Int): Int {
     var divider = n - 1
     while (n > 0) {
-        if (n % divider != 0) divider--
+        if (sqrt(n.toDouble()) % divider != 0.0) divider--
         else return divider
     }
     return divider
@@ -156,16 +156,15 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var biggerAm = maxOf(m, n)
-    for (i in 1..sqrt(minOf(m, n).toDouble()).toInt()) {
-        while (true) {
-            if ((biggerAm % m == 0) && (biggerAm % n == 0)) break;
-            else biggerAm++
-        }
-    }
-    return biggerAm
+    var m1 = m
+    var n1 = n
+    while (m1 != n1)
+        if (m1 > n1)
+            m1 -= n1
+        else
+            n1 -= m1
+    return n * m / m1
 }
-
 /**
  * Средняя (3 балла)
  *
