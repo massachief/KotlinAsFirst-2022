@@ -186,9 +186,6 @@ fun factorize(n: Int): List<Int> {
     var dividers = mutableListOf<Int>()
     while (n1 > 1) {
         if (n1 % divider == 0) {
-            if (divider < 0) {
-                divider *= -1
-            }
             dividers.add(divider)
             n1 /= divider
         } else divider++
