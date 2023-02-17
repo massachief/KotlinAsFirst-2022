@@ -234,15 +234,14 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     var n1 = n
-    var number = ""
-    val degreeDigits = "0123456789abcdefghijklmnopqrstuvwxyz"
+    var number = StringBuilder()
     var b = convert(n, base)
     for (i in 0 until b.size) {
-        if (b[i] < 10) number += b[i]
-        else number += degreeDigits[b[i]]
+        if (b[i] < 10) number.append(b[i])
+        else number.append('a' - 10 + b[i] % base)
 
     }
-    return number
+    return number.toString()
 }
 
 /**
